@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+
+  <head>
+    <style>
+       body {
+        background-image: url("file:///Users/pchan/Desktop/Screenshot%202020-06-25%20at%203.25.18%20PM.png");
+       }
+       p {
+         font-family: courier;
+       }
+       div {
+         font-family: courier;
+       }
+      </style>
+    </head>
+<body>
+  <h1>root machine</h1>
+    <div>
+      <form name="valform">
+          <input type="text" name="rootnumber" id="rootnumber" value="2" />th root<br>
+          root of...(no values above 100 allowed here) <input type="text" name="n" id="n" value="2" /><br>
+          Precision: <input type="text" name="precision" id="precision" value="10" />
+          <input type="button" onclick="start();" value="Go!">
+      </form>
+    </div>
+
+  <p>This will calculate the root of your number.</p>
+  <p>The answer is <b id="answer"></b>.</p>
+
+  <script src='big.min.js'></script>
+    <script>
+      Big.DP = 500;
+
+        function calculate(n, rootnumber, precision, min, max) {
+          var error = new Big(0.1).pow(precision);
+          var mid = min.plus(max).div(2);
+          var new_answer = mid.pow(rootnumber);
+
+          if (new_answer.gt(n.minus(error)) && new_answer.lt(n.plus(error))) {
+            document.getElementById("answer").innerHTML = "" + mid.round(precision);
+            return;
+          }
+
+          if (new_answer.gt(n)) {
+            max = mid;
+          } else {
+            min = mid;
+          }
+          document.getElementById("answer").innerHTML = "about " + mid.round(precision);
+          setTimeout(function() {
+            calculate(n, rootnumber, precision, min, max);
+          }, 100)
+        }
+
+        function start() {
+          var n = parseInt(document.getElementById("n").value);
+          var rootnumber = parseInt(document.getElementById("rootnumber").value);
+          var precision = parseInt(document.getElementById("precision").value);
+          console.log('test');
+          console.log(n);
+          calculate(new Big(n), rootnumber, precision, new Big(0), new Big(10));
+        }
+    </script>
+  </body>
+</html>
