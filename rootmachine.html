@@ -21,6 +21,7 @@
           <input type="text" name="rootnumber" id="rootnumber" value="2" />th root<br>
           root of...(no values above 100 allowed here) <input type="text" name="n" id="n" value="2" /><br>
           Precision: <input type="text" name="precision" id="precision" value="10" />
+
           <input type="button" onclick="start();" value="Go!">
       </form>
     </div>
@@ -30,6 +31,14 @@
 
   <script src='big.min.js'></script>
     <script>
+      var input = document.getElementById("n");
+      input.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+          event.preventDefault();
+          start();
+        }
+      });
+
       Big.DP = 500;
 
         function calculate(n, rootnumber, precision, min, max) {
