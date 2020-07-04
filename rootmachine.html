@@ -54,15 +54,13 @@
       return "";
     }
 
-    function checkCookie() {
-      var user = getCookie("username");
-      if (user != "") {
-        alert("Welcome again " + user);
-      } else {
-        user = prompt("Please enter your name:", "");
-        if (user != "" && user != null) {
-          setCookie("username", user, 365);
-        }
+    function loadPrevAnswer() {
+      var answer = getCookie("answer");
+      if (answer != "") {
+        document.getElementById("answer").innerHTML = answer;
+        document.getElementById("rootnumber").innerHTML = getCookie("rootnumber");
+        document.getElementById("precision").innerHTML = getCookie("precision");
+        document.getElementById("n").innerHTML = getCookie("n");
       }
     }
 
@@ -73,6 +71,8 @@
           start();
         }
       });
+
+      loadPrevAnswer();
 
       Big.DP = 500;
 
@@ -86,9 +86,9 @@
             var a = mid.round(precision);
             document.getElementById("answer").innerHTML = "" + a;
             setCookie("answer", "" + a, 100);
-            setCookie("rootnumber", rootnumber);
-            setCookie("precision", precision);
-            setCookie("n", n);
+            setCookie("rootnumber", rootnumber, 100);
+            setCookie("precision", precision, 100);
+            setCookie("n", n, 100);
             console.log(getCookie("answer"));
             return;
           }
