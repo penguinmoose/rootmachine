@@ -58,9 +58,9 @@
       var answer = getCookie("answer");
       if (answer != "") {
         document.getElementById("answer").innerHTML = answer;
-        document.getElementById("rootnumber").innerHTML = getCookie("rootnumber");
-        document.getElementById("precision").innerHTML = getCookie("precision");
-        document.getElementById("n").innerHTML = getCookie("n");
+        document.getElementById("rootnumber").value = getCookie("rootnumber");
+        document.getElementById("precision").value = getCookie("precision");
+        document.getElementById("n").value = getCookie("n");
       }
     }
 
