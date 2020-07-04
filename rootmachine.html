@@ -7,10 +7,10 @@
         background-image: url("sqrtx.png");
        }
        p {
-         font-family: courier;
+         font-family: "courier new";
        }
        div {
-         font-family: courier;
+         font-family: "courier new";
        }
       </style>
     </head>
@@ -31,6 +31,41 @@
 
   <script src='big.min.js'></script>
     <script>
+
+    function setCookie(cname, cvalue, exdays) {
+      var d = new Date();
+      d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+      var expires = "expires="+d.toUTCString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cname) {
+      var name = cname + "=";
+      var ca = document.cookie.split(';');
+      for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+
+    function checkCookie() {
+      var user = getCookie("username");
+      if (user != "") {
+        alert("Welcome again " + user);
+      } else {
+        user = prompt("Please enter your name:", "");
+        if (user != "" && user != null) {
+          setCookie("username", user, 365);
+        }
+      }
+    }
+
       var input = document.getElementById("n");
       input.addEventListener("keyup", function(event) {
         if (event.keyCode === 13) {
@@ -48,6 +83,13 @@
 
           if (new_answer.gt(n.minus(error)) && new_answer.lt(n.plus(error))) {
             document.getElementById("answer").innerHTML = "" + mid.round(precision);
+            var a = mid.round(precision);
+            document.getElementById("answer").innerHTML = "" + a;
+            setCookie("answer", "" + a, 100);
+            setCookie("rootnumber", rootnumber);
+            setCookie("precision", precision);
+            setCookie("n", n);
+            console.log(getCookie("answer"));
             return;
           }
 
