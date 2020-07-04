@@ -14,7 +14,7 @@
        }
       </style>
     </head>
-<body>
+<body onload="loadPrevAnswer()">
   <h1>root machine</h1>
     <div>
       <form name="valform">
@@ -71,8 +71,6 @@
           start();
         }
       });
-
-      loadPrevAnswer();
 
       Big.DP = 500;
 
