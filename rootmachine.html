@@ -6,29 +6,29 @@
        body {
         background-image: url("yrtx.png");
        }
+
        div {
          font-family: "arial";
        }
-       input[type=text], select {
-        width: 100%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
+
+       input[type=text] {
+       width: 130px;
+       box-sizing: border-box;
+       border: 2px solid #ccc;
+       border-radius: 4px;
+       font-size: 16px;
+       background-color: white;
+       background-image: url('searchicon.png');
+       background-position: 10px 10px;
+       background-repeat: no-repeat;
+       padding: 12px 20px 12px 40px;
+       transition: width 0.4s ease-in-out;
       }
 
-      input[type=submit] {
+      input[type=text]:focus {
         width: 100%;
-        background-color: #4CAF50;
-        color: white;
-        padding: 14px 20px;
-        margin: 8px 0;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
       }
+
       div {
        font-family: "courier new";
        border-radius: 5px;
@@ -41,9 +41,9 @@
   <h1>root machine!</h1>
     <div>
       <form action="/action_page.php">
-        <input type="text" id="rootnumber" name="rootnumber" placeholder="_th root">
-        <input type="text" id="n" name="n" placeholder="root of...">
-        <input type="text" id="precision" name="precision" placeholder="precision">
+        <input type="text" id="rootnumber" name="rootnumber" placeholder="_th root"><br>
+        <input type="text" id="n" name="n" placeholder="root of..."><br>
+        <input type="text" id="precision" name="precision" placeholder="precision"><br><br>
 
         <input type="button" onclick="start();" value="Go!">
       </form>
