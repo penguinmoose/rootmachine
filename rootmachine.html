@@ -1,71 +1,72 @@
 <!DOCTYPE HTML>
 <html>
 
-  <head>
-    <style>
-       body {
-        background-image: url("yrtx.png");
-       }
+<head>
+  <style>
+    body {
+      background-image: url("yrtx.png");
+    }
 
-       div {
-         font-family: "arial";
-       }
+    div {
+      font-family: "arial";
+    }
 
-       input[type=text] {
-       width: 130px;
-       box-sizing: border-box;
-       border: 2px solid #ccc;
-       border-radius: 4px;
-       font-size: 16px;
-       background-color: white;
-       background-image: url('searchicon.png');
-       background-position: 10px 10px;
-       background-repeat: no-repeat;
-       padding: 12px 20px 12px 40px;
-       transition: width 0.4s ease-in-out;
-      }
+    input[type=text] {
+      width: 130px;
+      box-sizing: border-box;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+      background-color: white;
+      background-image: url('searchicon.png');
+      background-position: 10px 10px;
+      background-repeat: no-repeat;
+      padding: 12px 20px 12px 40px;
+      transition: width 0.4s ease-in-out;
+    }
 
-      input[type=text]:focus {
-        width: 100%;
-      }
+    input[type=text]:focus {
+      width: 100%;
+    }
 
-      div {
-       font-family: "courier new";
-       border-radius: 5px;
-       background-color: #f2f2f2;
-       padding: 20px;
-      }
-    </style>
-  </head>
+    div {
+      font-family: "courier new";
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+  </style>
+</head>
+
 <body onload="loadPrevAnswer()">
   <h1>root machine!</h1>
-    <div>
-      <form action="/action_page.php">
-        <input type="text" id="rootnumber" name="rootnumber" placeholder="_th root"><br>
-        <input type="text" id="n" name="n" placeholder="root of..."><br>
-        <input type="text" id="precision" name="precision" placeholder="precision"><br><br>
+  <div>
+    <form action="/action_page.php">
+      <input type="text" id="rootnumber" name="rootnumber" placeholder="_th root"><br>
+      <input type="text" id="n" name="n" placeholder="root of..."><br>
+      <input type="text" id="precision" name="precision" placeholder="precision"><br><br>
 
-        <input type="button" onclick="start();" value="Go!">
-      </form>
-    </div>
+      <input type="button" onclick="start();" value="Go!">
+    </form>
+  </div>
 
-  <div>The answer is <div id="answer"></div></div>
+  <div>The answer is <div id="answer"></div>
+  </div>
 
 
   <script src='big.min.js'></script>
-    <script>
-
+  <script>
     function setCookie(cname, cvalue, exdays) {
       var d = new Date();
       d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-      var expires = "expires="+d.toUTCString();
+      var expires = "expires=" + d.toUTCString();
       document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     }
 
     function getCookie(cname) {
       var name = cname + "=";
       var ca = document.cookie.split(';');
-      for(var i = 0; i < ca.length; i++) {
+      for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
         while (c.charAt(0) == ' ') {
           c = c.substring(1);
@@ -87,52 +88,53 @@
       }
     }
 
-      var input = document.getElementById("n");
-      input.addEventListener("keyup", function(event) {
-        if (event.keyCode === 13) {
-          event.preventDefault();
-          start();
-        }
-      });
+    var input = document.getElementById("n");
+    input.addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        start();
+      }
+    });
 
-      Big.DP = 500;
+    Big.DP = 500;
 
-        function calculate(n, rootnumber, precision, min, max) {
-          var error = new Big(0.1).pow(precision);
-          var mid = min.plus(max).div(2);
-          var new_answer = mid.pow(rootnumber);
+    function calculate(n, rootnumber, precision, min, max) {
+      var error = new Big(0.1).pow(precision);
+      var mid = min.plus(max).div(2);
+      var new_answer = mid.pow(rootnumber);
 
-          if (new_answer.gt(n.minus(error)) && new_answer.lt(n.plus(error))) {
-            document.getElementById("answer").innerHTML = "" + mid.round(precision);
-            var a = mid.round(precision);
-            document.getElementById("answer").innerHTML = "" + a;
-            setCookie("answer", "" + a, 50);
-            setCookie("rootnumber", rootnumber, 50);
-            setCookie("precision", precision, 50);
-            setCookie("n", n, 50);
-            console.log(getCookie("answer"));
-            return;
-          }
+      if (new_answer.gt(n.minus(error)) && new_answer.lt(n.plus(error))) {
+        document.getElementById("answer").innerHTML = "" + mid.round(precision);
+        var a = mid.round(precision);
+        document.getElementById("answer").innerHTML = "" + a;
+        setCookie("answer", "" + a, 50);
+        setCookie("rootnumber", rootnumber, 50);
+        setCookie("precision", precision, 50);
+        setCookie("n", n, 50);
+        console.log(getCookie("answer"));
+        return;
+      }
 
-          if (new_answer.gt(n)) {
-            max = mid;
-          } else {
-            min = mid;
-          }
-          document.getElementById("answer").innerHTML = "about " + mid.round(precision);
-          setTimeout(function() {//pause so calculation is visible
-            calculate(n, rootnumber, precision, min, max);
-          }, 100)
-        }
+      if (new_answer.gt(n)) {
+        max = mid;
+      } else {
+        min = mid;
+      }
+      document.getElementById("answer").innerHTML = "about " + mid.round(precision);
+      setTimeout(function() { //pause so calculation is visible
+        calculate(n, rootnumber, precision, min, max);
+      }, 100)
+    }
 
-        function start() {
-          var n = parseInt(document.getElementById("n").value);
-          var rootnumber = parseInt(document.getElementById("rootnumber").value);
-          var precision = parseInt(document.getElementById("precision").value);
-          console.log('test');
-          console.log(n);
-          calculate(new Big(n), rootnumber, precision, new Big(0), new Big(10));
-        }
-    </script>
-  </body>
+    function start() {
+      var n = parseInt(document.getElementById("n").value);
+      var rootnumber = parseInt(document.getElementById("rootnumber").value);
+      var precision = parseInt(document.getElementById("precision").value);
+      console.log('test');
+      console.log(n);
+      calculate(new Big(n), rootnumber, precision, new Big(0), new Big(10));
+    }
+  </script>
+</body>
+
 </html>
