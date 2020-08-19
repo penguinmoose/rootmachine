@@ -5,10 +5,8 @@
   <style>
     body {
       background-image: url("yrtx.png");
-    }
-
-    div {
-      font-family: "arial";
+      font-family: sans-serif;
+      font-weight: 400;
     }
 
     input[type=text] {
@@ -18,22 +16,27 @@
       border-radius: 4px;
       font-size: 16px;
       background-color: white;
-      background-image: url('searchicon.png');
       background-position: 10px 10px;
       background-repeat: no-repeat;
       padding: 12px 20px 12px 40px;
-      transition: width 0.4s ease-in-out;
-    }
-
-    input[type=text]:focus {
-      width: 100%;
     }
 
     div {
-      font-family: "courier new";
       border-radius: 5px;
       background-color: #f2f2f2;
       padding: 20px;
+    }
+
+    .options {
+      height: 50px;
+      width: 200px;
+      border-style: solid;
+      border-color: #c2c2c2;
+      border-radius: 25px;
+    }
+    #answer {
+      word-break: break-all;
+      width: calc(100% - 20px)
     }
   </style>
 </head>
@@ -41,13 +44,16 @@
 <body onload="loadPrevAnswer()">
   <h1>root machine!</h1>
   <div>
-    <form action="/action_page.php">
-      <input type="text" id="rootnumber" name="rootnumber" placeholder="_th root"><br>
-      <input type="text" id="n" name="n" placeholder="root of..."><br>
-      <input type="text" id="precision" name="precision" placeholder="precision"><br><br>
+    <form>
+      <div>_th root</div>
+      <input type="text" id="rootnumber" name="rootnumber" placeholder="type values here..."><br>
+      <div>root of...</div>
+      <input type="text" id="n" name="n" placeholder="type values here..."><br>
+      <div>precision</div>
+      <input type="text" id="precision" name="precision" placeholder="type values here..."><br><br>
 
-      <input type="button" onclick="start('bi');" value="Bisection">
-      <input type="button" onclick="start('new');" value="Newton">
+      <input class="options" type="button" onclick="start('bi');" value="calculate using bisection">
+      <input class="options" type="button" onclick="start('new');" value="calculate using Newton's method">
     </form>
   </div>
 
@@ -157,7 +163,6 @@
       var n = parseInt(document.getElementById("n").value);
       var rootnumber = parseInt(document.getElementById("rootnumber").value);
       var precision = parseInt(document.getElementById("precision").value);
-      console.log('test');
       console.log(n);
       if (method === 'bi') {
         calculate(new Big(n), rootnumber, precision, new Big(0), new Big(10), 1);
