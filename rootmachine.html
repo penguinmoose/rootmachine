@@ -46,7 +46,8 @@
       <input type="text" id="n" name="n" placeholder="root of..."><br>
       <input type="text" id="precision" name="precision" placeholder="precision"><br><br>
 
-      <input type="button" onclick="start();" value="Go!">
+      <input type="button" onclick="start('bi');" value="Bisection">
+      <input type="button" onclick="start('new');" value="Newton">
     </form>
   </div>
 
@@ -98,15 +99,14 @@
 
     Big.DP = 500;
 
-    function calculate(n, rootnumber, precision, min, max) {
+    function calculate(n, rootnumber, precision, min, max, iteration) {
       var error = new Big(0.1).pow(precision);
       var mid = min.plus(max).div(2);
       var new_answer = mid.pow(rootnumber);
 
       if (new_answer.gt(n.minus(error)) && new_answer.lt(n.plus(error))) {
-        document.getElementById("answer").innerHTML = "" + mid.round(precision);
         var a = mid.round(precision);
-        document.getElementById("answer").innerHTML = "" + a;
+        document.getElementById("answer").innerHTML = "(" + iteration + ") " + a;
         setCookie("answer", "" + a, 50);
         setCookie("rootnumber", rootnumber, 50);
         setCookie("precision", precision, 50);
@@ -120,19 +120,50 @@
       } else {
         min = mid;
       }
-      document.getElementById("answer").innerHTML = "about " + mid.round(precision);
+      document.getElementById("answer").innerHTML = "(" + iteration + ") about " + mid.round(precision);
       setTimeout(function() { //pause so calculation is visible
-        calculate(n, rootnumber, precision, min, max);
+        calculate(n, rootnumber, precision, min, max, iteration + 1);
       }, 100)
     }
 
-    function start() {
+    function calculate_newton(n, rootnumber, precision, guess, iteration) {
+      var error = new Big(0.1).pow(precision);
+
+      var delta = guess.pow(rootnumber).minus(n).div(
+        guess.pow(rootnumber - 1).mul(rootnumber)
+      );
+      var mid = guess.minus(delta);
+      var new_answer = mid.pow(rootnumber);
+
+      if (new_answer.gt(n.minus(error)) && new_answer.lt(n.plus(error))) {
+        var a = mid.round(precision);
+        document.getElementById("answer").innerHTML = "(" + iteration + ") "+ a;
+        setCookie("answer", "" + a, 50);
+        setCookie("rootnumber", rootnumber, 50);
+        setCookie("precision", precision, 50);
+        setCookie("n", n, 50);
+        console.log(getCookie("answer"));
+        return;
+      }
+
+      document.getElementById("answer").innerHTML = "(" + iteration + ") about " + mid.round(precision);
+      setTimeout(function() { //pause so calculation is visible
+        calculate_newton(n, rootnumber, precision, mid, iteration + 1);
+      }, 100)
+    }
+
+
+    function start(method) {
       var n = parseInt(document.getElementById("n").value);
       var rootnumber = parseInt(document.getElementById("rootnumber").value);
       var precision = parseInt(document.getElementById("precision").value);
       console.log('test');
       console.log(n);
-      calculate(new Big(n), rootnumber, precision, new Big(0), new Big(10));
+      if (method === 'bi') {
+        calculate(new Big(n), rootnumber, precision, new Big(0), new Big(10), 1);
+      } else {
+        calculate_newton(new Big(n), rootnumber, precision, new Big(5), 1);
+      }
     }
   </script>
 </body>
