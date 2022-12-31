@@ -178,7 +178,7 @@
         return;
       }
 
-      document.getElementById("answer").innerHTML = "(" + iteration + ") about " + mid.round(precision);
+      document.getElementById("answer").innerHTML = "on step " + iteration + " about " + mid.round(precision);
       setTimeout(function() { //pause so calculation is visible
         calculate_newton(n, rootnumber, precision, mid, iteration + 1);
       }, 100)
