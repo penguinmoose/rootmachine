@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Root machine calcutes the root of a number. You can control how many digits to calculate and the method. It also shows you how many steps the algrithom took to calculate the root.">
+  <meta name="description" content="Root machine calculates the root of a number. You can control how many digits to calculate and the method. It also shows you how many steps the algorithm took to calculate the root.">
   <meta name="keywords" content="root machine, math, mathematics, root, square root, calculator, root calculator, square root calculator">
   <meta name="subject" content="mathematics">
   <meta name="language" content="EN">
@@ -17,7 +17,6 @@
     body {
       background-color: #083a57;
       font-family: sans-serif;
-      color: white;
     }
 
     input[type=text] {
@@ -54,28 +53,35 @@
       word-break: break-all;
       width: calc(100% - 20px);
     }
+    
+    .box {
+      background-color: white;
+      padding: 15px;
+      border: 5px solid #ccc;
+      border-radius: 8px;
+    }
   </style>
 </head>
 
 <body onload="loadPrevAnswer()">
   <h1 style="color: white;">Welcome to Root Machine!</h1>
-  <div>
-    <form>
-      <div>_th root (radical number):</div>
-      <input type="text" id="rootnumber" name="rootnumber" placeholder="Enter radical number here"><br>
-      <div>Root of:</div>
-      <input type="text" id="n" name="n" placeholder="Root of..."><br>
-      <div>Precision (decimal places):</div>
-      <input type="text" id="precision" name="precision" placeholder="How many decimal places?"><br><br>
+  <div class="box">
+    <div>
+      <form>
+        <div>_th root (radical number):</div>
+        <input type="text" id="rootnumber" name="rootnumber" placeholder="Enter radical number here"><br>
+        <div>Root of:</div>
+        <input type="text" id="n" name="n" placeholder="Root of..."><br>
+        <div>Precision (decimal places):</div>
+        <input type="text" id="precision" name="precision" placeholder="How many decimal places?"><br><br>
+        
+        <input class="options" type="button" onclick="start('bi');" value="calculate using bisection">
+        <input class="options" type="button" onclick="start('new');" value="calculate using Newton's method">
+      </form>
+    </div>
+    <div>The answer is <span id="answer"></span></div>
 
-      <input class="options" type="button" onclick="start('bi');" value="calculate using bisection">
-      <input class="options" type="button" onclick="start('new');" value="calculate using Newton's method">
-    </form>
-  </div>
-
-  <div>The answer is <span id="answer"></span></div>
-    
-  <p>Try calculating the root of a number using both bisection and <a href="https://en.wikipedia.org/wiki/Newton%27s_method">Newton's method</a>. Newton's method is much faster - only 10 steps for 200 decimal places compared to over 600 steps for 200 decimal places using bisection.</p>
+    <p>Try calculating the root of a number using both bisection and <a href="https://en.wikipedia.org/wiki/Newton%27s_method">Newton's method</a>. Newton's method is much faster - only 10 steps for 200 decimal places compared to over 600 steps for 200 decimal places using bisection.</p>
   </div>
 
 
