@@ -29,6 +29,7 @@
       background-position: 10px 10px;
       background-repeat: no-repeat;
       padding: 12px 20px 12px 40px;
+      margin-bottom: 10px;
     }
 
     .options {
@@ -68,11 +69,11 @@
   <div class="box">
     <div class="innerbox">
       <form>
-        <div>_th root (radical number):</div>
+        <label for="rootnumber">_th root (radical number):</label><br>
         <input type="text" id="rootnumber" name="rootnumber" placeholder="Enter radical number here"><br>
-        <div>Root of:</div>
+        <label for="n">Root of:</label><br>
         <input type="text" id="n" name="n" placeholder="Root of..."><br>
-        <div>Precision (decimal places):</div>
+        <label for="precision">Precision (decimal places):</label><br>
         <input type="text" id="precision" name="precision" placeholder="How many decimal places?"><br><br>
         
         <input class="options" type="button" onclick="start('bi');" value="calculate using bisection">
@@ -127,7 +128,7 @@
       }
     });
 
-    Big.DP = 1000;
+    Big.DP = 2000;
 
     function calculate(n, rootnumber, precision, min, max, iteration) {
       var error = new Big(0.1).pow(precision);
@@ -188,8 +189,8 @@
       var rootnumber = parseInt(document.getElementById("rootnumber").value);
       var precision = parseInt(document.getElementById("precision").value);
 
-      if (precision > 1000) {
-        alert("The precision you entered is too big. For now, precision is limited to 1000 decimal places.");
+      if (precision > 2000) {
+        alert("The precision you entered is too big. For now, precision is limited to 2000 decimal places.");
       }
 
       console.log(n);
